@@ -69,36 +69,79 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
-        body: Row(
-          children: [
-            SafeArea(
-              child: NavigationRail(
-                extended: constraints.maxWidth >= 600,
-                destinations: [
-                  NavigationRailDestination(
-                    icon: Icon(Icons.home),
-                    label: Text('Home'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.favorite),
-                    label: Text('Favorites'),
-                  ),
-                ],
-                selectedIndex: selectedIndex,
-                onDestinationSelected: (value) {
-                  setState(() {
-                    selectedIndex = value;
-                  });
-                },
+        appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer),
+        drawer: Drawer(
+          child: ListView(padding: EdgeInsets.zero, children: [
+            const UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.green,
+              ),
+              accountName: Text(
+                "Albert Nguyen",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              accountEmail: Text("albertnguyen34@gmail.com"),
+              currentAccountPicture: CircleAvatar(
+                child: FlutterLogo(),
               ),
             ),
-            Expanded(
-              child: Container(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                child: page,
-              ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: const Text("Home"),
+              onTap: () {
+                setState(() {
+                  selectedIndex = 0;
+                });
+                Navigator.pop(context);
+              },
             ),
-          ],
+            ListTile(
+              leading: Icon(Icons.favorite),
+              title: const Text("Favorites"),
+              onTap: () {
+                setState(() {
+                  selectedIndex = 1;
+                });
+                Navigator.pop(context);
+              },
+            )
+          ]
+
+              // SafeArea(
+              //   child: NavigationRail(
+              //     extended: constraints.maxWidth >= 600,
+              //     destinations: [
+              //       NavigationRailDestination(
+              //         icon: Icon(Icons.home),
+              //         label: Text('Home'),
+              //       ),
+              //       NavigationRailDestination(
+              //         icon: Icon(Icons.favorite),
+              //         label: Text('Favorites'),
+              //       ),
+              //     ],
+              //     selectedIndex: selectedIndex,
+              //     onDestinationSelected: (value) {
+              //       setState(() {
+              //         selectedIndex = value;
+              //       });
+              //     },
+              //   ),
+              // ),
+              //   Expanded(
+              //     child: Container(
+              //       color: Theme.of(context).colorScheme.primaryContainer,
+              //       child: page,
+              //     ),
+              //   ),
+              ),
+        ),
+        body: Container(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          child: page,
         ),
       );
     });
